@@ -3,7 +3,7 @@ class CreateThingstodos < ActiveRecord::Migration[6.0]
     create_table :thingstodos do |t|
       t.string :name
       t.string :description
-      t.references :city, null: false, foreign_key: true
+      t.references :city, null: false, foreign_key: true 
 
       t.timestamps
     end
