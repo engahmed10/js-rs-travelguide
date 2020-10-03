@@ -1,4 +1,4 @@
 class CitySerializer
   include FastJsonapi::ObjectSerializer
-  attributes 
+  attributes :id ,:name, :country, :population, :url
 end
