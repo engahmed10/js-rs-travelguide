@@ -1,2 +1,2 @@
 class ThingstodosController < ApplicationController
-end
+    belongs_to :city

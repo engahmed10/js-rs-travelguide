@@ -1,2 +1,2 @@
 class CitiesController < ApplicationController
-end
+    has_many :thingstodos
