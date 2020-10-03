@@ -1,2 +1,8 @@
 class CitiesController < ApplicationController
-    has_many :thingstodos
+   
+    def index
+       @city= City.all  
+       render json: @city  
+    end
+
+end
