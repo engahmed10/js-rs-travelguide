@@ -1,0 +1,2 @@
+class ThingstodosController < ApplicationController
+end
