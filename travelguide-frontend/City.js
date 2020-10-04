@@ -18,9 +18,27 @@ class City {
           e.preventDefault()
           if(e.target.id === 'del-city')
           {
-           e.preventDefault()
-           new ApiAjax(URL).fetchForDelete(this.city.id)
-           e.target.parentNode.remove()
+               e.preventDefault()
+               new ApiAjax(URL).fetchForDelete(this.city.id)
+               e.target.parentNode.remove()
+          }
+
+          if(e.target.id=== 'update-city')
+          {
+               e.preventDefault()
+
+               //find parent 
+               let parent =e.target.parentElement
+               const nameValue=parent.querySelector('.city-name').textContent
+               const countryValue=parent.querySelector('.city-country').textContent
+               const populationValue=parent.querySelector('.city-population').textContent
+               const urlValue=parent.querySelector('.city-url').src
+               const form = document.querySelector('#city-form')
+               form.name.value= nameValue
+               form.country.value=countryValue
+               form.population.value=populationValue
+               form.url.value= urlValue
+               
           }
      })
            

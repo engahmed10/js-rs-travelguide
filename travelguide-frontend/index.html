@@ -10,17 +10,45 @@
 </head>
 
 <body>
-
+  <main>
    <div  class= 'city_collection'>
 
 
    </div>
 
-  
+   <div id="section1">
+
+    <form id="city-form">
+        <h2>Add New City</h2>
+        <ul>
+            <li>
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" value="" />
+            </li>
+            <li>
+                <label for="country">Country:</label>
+                <input type="text" name="country" id="country" value="" />
+            </li>
+            <li>
+                <label for="population">Population:</label>
+                <input type="text" name="population" id="population" value="" />
+            </li>
+            <li>
+                <label for="url">Url:</label>
+                <input type="text" name="url" id="url" value="" />
+            </li>
+            <li>
+                <input type="submit" value="submit" id="new-city-btn" />
+                <input type="reset" value="reset" />
+            </li>
+        </ul>
+    </form>
+</div>
+
     <script  src="src/ApiAjax.js"></script>
     <script defer src="City.js"></script>
     
-
+ </main>
 </body>
 
 </html>
