@@ -1,7 +1,8 @@
 class ApiAjax {
 
-  constructor(URL){
+  constructor(URL,model){
      this.URL = URL
+     this.model=model
   }
 
   
@@ -16,6 +17,18 @@ class ApiAjax {
            method:'DELETE'
         })     
       
+      }
+
+      fetchForUpdate(id,data){
+        return fetch(`${this.URL}/${this.model}/${id}`,{
+          method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+         }) 
+         .then(res => res.json())
+
       }
 
 

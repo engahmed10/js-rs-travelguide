@@ -8,6 +8,7 @@ class City {
 
    ///render and del and update
   renderCities(){  
+
      let card = document.createElement('div')
      card.classList.add("card")
      card.setAttribute('data-id',this.city.id)
@@ -23,6 +24,8 @@ class City {
                e.target.parentNode.remove()
           }
 
+          const form = document.querySelector('#city-form')
+
           if(e.target.id=== 'update-city')
           {
                e.preventDefault()
@@ -33,13 +36,27 @@ class City {
                const countryValue=parent.querySelector('.city-country').textContent
                const populationValue=parent.querySelector('.city-population').textContent
                const urlValue=parent.querySelector('.city-url').src
-               const form = document.querySelector('#city-form')
                form.name.value= nameValue
                form.country.value=countryValue
                form.population.value=populationValue
                form.url.value= urlValue
                
           }
+          const updateButton = document.querySelector("#city-btn")
+          updateButton.addEventListener('click',(e)=>
+          {
+               e.preventDefault()
+             let data={
+                    name: form.name.value,
+                    country: form.country.value,
+                    population: form.population.value,
+                    url: form.url.value
+               }
+             
+              new ApiAjax(URL,'cities').fetchForUpdate(this.city.id,data).then(() => location.reload())
+
+
+          })
      })
            
 
