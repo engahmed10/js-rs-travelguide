@@ -4,11 +4,14 @@ class ApiAjax {
      this.URL = URL
   }
 
-    getAllCities() {
+  
+     fetchAllCities() {
      return  fetch(`${this.URL}/cities`)   
        .then(response=>response.json())   
       
     }
 
 
+
 }
+
