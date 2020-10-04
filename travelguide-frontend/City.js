@@ -5,22 +5,20 @@ class City {
    constructor(city)
    {         
         this.city = city
-        this.renderCities(this.city)
    }
 
   renderCities(){  
-
      let card = document.createElement('div')
      card.classList.add("card")
-     card.setAttribute('data-id',`${this.city.id}`)
+     card.setAttribute('data-id',this.city.id)
      card.innerHTML = this.renderHTML(this.city)
      city_collection.appendChild(card)
   
    }
 
-  static makeobjectofcities=(data)=>{
+  static makeObjectOfCities=(data)=>{
      data.forEach(city => {
-     new City(city)
+     new City(city).renderCities()
      })
     }
 
@@ -28,11 +26,10 @@ class City {
     let api=new ApiAjax(URL)
      api.fetchAllCities().then(data=>{
      
-     this.makeobjectofcities(data)
+     this.makeObjectOfCities(data)
     
      })
 }
-
 
 ///html render
  renderHTML = (element) => {
@@ -47,7 +44,8 @@ class City {
    `
 }
 
-
 }
+
+
 City.promiseAllCities()
-new City().renderCities()
+

@@ -1,0 +1,30 @@
+body{
+
+margin: 0;
+padding: 0;
+background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRYFS-1IgOcLKrKXL9MEUh2ciqAUMW_9k2LOA&usqp=CAU);
+background-repeat: no-repeat;
+background-size: cover;
+
+}
+
+img{
+      width: 300px;
+      height: 300px;
+      border-radius: 50px;
+}
+
+.city_collection {
+   
+    margin: 8em;
+    display: inline-block;
+}
+
+
+.card {
+    display: inline-grid;
+    border: 0px solid rgba(0, 0, 0, 0.8);
+    padding: 2em;
+    font-size: 20px;
+    text-align: center;
+}
