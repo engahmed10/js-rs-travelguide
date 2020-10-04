@@ -16,6 +16,15 @@ class CitiesController < ApplicationController
         render json: city
     end
 
+    def create
+       
+        city=City.new(name:params[:name],country:params[:country],population:params[:population],url:params[:url])
+        if city.save
+            render json: city
+        else
+             render json: city.errors 
+        end
+    end
 
     def destroy
        City.find(params[:id]).destroy

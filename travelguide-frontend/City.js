@@ -1,5 +1,7 @@
 URL = `http://127.0.0.1:3000`
 const city_collection = document.querySelector('.city_collection')
+const form = document.querySelector('#city-form')
+
 class City {
 
    constructor(city){         
@@ -14,6 +16,8 @@ class City {
      card.setAttribute('data-id',this.city.id)
      card.innerHTML = this.renderHTML(this.city)
      city_collection.appendChild(card)
+     
+     
 
      card.addEventListener('click',(e)=>{
           e.preventDefault()
@@ -24,7 +28,6 @@ class City {
                e.target.parentNode.remove()
           }
 
-          const form = document.querySelector('#city-form')
 
           if(e.target.id=== 'update-city')
           {
@@ -59,10 +62,8 @@ class City {
           })
      })
            
-
+    
    }
-
-     
 
 
   static makeObjectOfCities=(data)=>{
@@ -75,6 +76,7 @@ class City {
     let api=new ApiAjax(URL)
      api.fetchAllCities().then(data=>{
        this.makeObjectOfCities(data)
+      
      })
    }
 
@@ -89,9 +91,34 @@ class City {
     <button id="update-city" class="update-btn" type="submit">Update</button>
    `
   }
+
+  ///addd new city
+
+static makeNewCity=(form)=>{
+form.addEventListener('submit', function(e) {
+     e.preventDefault()
+     console.log('button pushed')
+     let data = {
+         name: form.name.value,
+         country: form.country.value,
+         population: form.population.value,
+         url: form.url.value
+     };
+ 
+     new ApiAjax(URL,'cities').fetchForCreate(data).then(data => {
+         let arr=[] 
+         arr.push(data)
+           City.makeObjectOfCities(arr)
+ 
+         })
+
+ 
+ })
+}
   
 }
 
 
 City.promiseAllCities()
+City.makeNewCity(form)
 
