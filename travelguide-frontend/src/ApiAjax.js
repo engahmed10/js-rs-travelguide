@@ -6,10 +6,17 @@ class ApiAjax {
 
   
      fetchAllCities() {
-     return  fetch(`${this.URL}/cities`)   
-       .then(response=>response.json())   
+        return  fetch(`${this.URL}/cities`)   
+          .then(response => response.json())   
       
-    }
+      }
+
+      fetchForDelete(id) {
+        return  fetch(`${this.URL}/cities/${id}`,{
+           method:'DELETE'
+        })     
+      
+      }
 
 
 
