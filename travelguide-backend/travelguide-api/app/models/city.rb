@@ -1,3 +1,3 @@
 class City < ApplicationRecord
-    has_many :thingstodos
+    has_many :thingstodos ,dependent: :destroy
 end

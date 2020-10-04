@@ -19,8 +19,7 @@ class City {
           if(e.target.id === 'del-city')
           {
            e.preventDefault()
-           new ApiAjax(URL).fetchAllCities(this.city.id)
-
+           new ApiAjax(URL).fetchForDelete(this.city.id)
            e.target.parentNode.remove()
           }
      })
