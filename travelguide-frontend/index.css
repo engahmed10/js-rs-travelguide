@@ -1,3 +1,10 @@
+
+html{
+
+
+    scroll-behavior: smooth;
+}
+
 body{
 
     margin: 0;
@@ -48,7 +55,34 @@ li a{
 
 }
 .dropdown{
+
 }
+
+.dropdown-elements{
+  display: none;
+  position: absolute;
+  background-color: blanchedalmond;
+  min-width: 160px;
+  margin: 10px;
+}
+.dropdown-elements a { 
+    padding: 12px 16px;
+    display: block;
+}
+
+.dropdown-elements a:hover{
+    background-color: chartreuse;
+
+}
+
+.dropdown:hover .dropdown-elements{
+
+    display: block;
+}
+
+
+
+
 
 
 
