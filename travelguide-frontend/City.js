@@ -111,8 +111,6 @@ form.addEventListener('submit', function(e) {
            City.makeObjectOfCities(arr)
  
          })
-
- 
  })
 }
   

@@ -28,3 +28,27 @@ img{
     font-size: 20px;
     text-align: center;
 }
+
+.navbar{
+   margin: 0;
+   padding: 0;
+   background-color: lightgreen;
+   height: 50px;
+}
+
+li{
+
+display: inline-block;
+margin: 1em;
+}
+li a{
+
+    text-decoration: none;
+    padding: 2em;
+
+}
+.dropdown{
+}
+
+
+
