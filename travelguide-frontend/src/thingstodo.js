@@ -1,5 +1,6 @@
 URL = `http://127.0.0.1:3000`
 const nameOfCities = document.querySelector(".names-of-cities")
+const modal = document.getElementById('modal')
 
 class Thingstodo{
 
@@ -19,7 +20,7 @@ class Thingstodo{
      data.forEach( thingstodo => {
        let obj= new Thingstodo(thingstodo)
        // this.allcity.push(obj)
-        obj.renderallThingstodo()
+        obj.renderThingstodo()
         return obj
      })
     }
@@ -49,28 +50,43 @@ class Thingstodo{
    }
 
  
-     renderallThingstodo =()=>{
+   renderThingstodo =()=>{
      
         const {id,name,description,city_id} =  this.thingstodo ;
 
             nameOfCities.addEventListener('click', (e) => {
-               let cityId = e.target.parentElement.getAttribute('data-id')
-               let modal = document.getElementById('modal')
-               console.log(modal)
+               let cityId = e.target.parentElement.getAttribute('data-id')            
                      const div = document.createElement('div')
                         if (cityId == city_id) {                           
                            console.log(`id of things`,id)
                            div.classList.add('thingsToDo') 
                            div.setAttribute('data-city-id', id)
-                           div.innerHTML += this.renderOneThingsTodo()
+                           div.innerHTML += this.renderInnerHtml()
                            modal.appendChild(div)
                            console.log(modal)
+                           this.deleteThingstodo(div)
                         }
+              
+
              })
            
-     }
+    }
 
-  renderOneThingsTodo = () => {
+deleteThingstodo=(div,)=>{
+ const {id,name,description,city_id} =  this.thingstodo  
+                               ///edit and delete
+   div.addEventListener('click', (e) => {
+    e.preventDefault()
+      if (e.target.id === 'delete-thingstodo') {
+          new ApiAjax(URL,'thingstodos').fetchForDelete(id)
+         e.target.parentNode.remove()
+
+     }
+ 
+    
+   })
+}
+  renderInnerHtml= () => {
       const {id,name,description,city_id} =  this.thingstodo 
     let thingstod
     return thingstod = `

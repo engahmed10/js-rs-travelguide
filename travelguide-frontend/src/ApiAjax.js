@@ -13,7 +13,7 @@ class ApiAjax {
       }
 
       fetchForDelete(id) {
-        return  fetch(`${this.URL}/cities/${id}`,{
+        return  fetch(`${this.URL}/${this.model}/${id}`,{
            method:'DELETE'
         })     
       
