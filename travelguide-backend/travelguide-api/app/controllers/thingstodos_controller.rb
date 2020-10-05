@@ -15,6 +15,13 @@ class ThingstodosController < ApplicationController
     render json: @thingstodos
   end
 
+  def create
+    city=City.find_by(id:params[:city_id])
+    thingstodo=Thingstodo.create(name:params[:name],description:params[:description],city_id:city.id)
+    city.thingstodos << thingstodo
+    render json: thingstodo
+  end
+
    def destroy
      @thingstodos.destroy
    end 

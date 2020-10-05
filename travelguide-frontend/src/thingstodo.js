@@ -77,8 +77,10 @@ class Thingstodo{
                      this.updateThingstodo(parent)
                   
                }
+
             
             })
+            this.addNewThingstodo(div)
          }
               
 
@@ -86,12 +88,14 @@ class Thingstodo{
            
  }
 
+///delete
 deleteThingstodo=()=>{
  const {id,name,description,city_id} =  this.thingstodo  
 
           new ApiAjax(URL,'thingstodos').fetchForDelete(id)
 }
 
+///update 
 updateThingstodo=(parent)=>{
 const {id,name,description,city_id} =  this.thingstodo  
    const nameValue = parent.querySelector('.things-name').textContent
@@ -106,12 +110,38 @@ const {id,name,description,city_id} =  this.thingstodo
             description: thingstodoForm.description.value,
             city_id: city_id
       }
-      console.log(`id`,id)
       new ApiAjax(URL,'thingstodos').fetchForUpdate(id,data).then(() => location.reload())
 
    })
 
 }
+
+
+//adding new thingstodo 
+addNewThingstodo=(div)=>{
+    const {id,name,description,city_id} =  this.thingstodo  
+    //add new things to do when push submit
+    const newthingstosobtn = document.querySelector('#new-things-btn')
+  thingstodoForm.addEventListener("submit", (e) => {
+
+      console.log('pushed ne wthings to do buttom')
+         e.preventDefault()
+        let data = {
+            name: thingstodoForm.name.value,
+            description: thingstodoForm.description.value,
+            city_id: city_id
+         }
+         new ApiAjax(URL,'thingstodos').fetchForCreate(data).then(data => {
+
+               div.classList.add('thingsToDo')
+              // div.style.margin = '2em'
+               div.setAttribute('data-city-id', city_id)
+               div.innerHTML += this.renderInnerHtml(data)
+               modal.appendChild(div)
+            })
+   })
+}
+
 
 
   renderInnerHtml= () => {
