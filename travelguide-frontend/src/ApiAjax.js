@@ -6,8 +6,8 @@ class ApiAjax {
   }
 
   
-     fetchAllCities() {
-        return  fetch(`${this.URL}/cities`)   
+     fetchAll() {
+        return  fetch(`${this.URL}/${this.model}`)   
           .then(response => response.json())   
       
       }
@@ -41,7 +41,6 @@ class ApiAjax {
     })
     .then(response => response.json())
   }
-
 
 }
 
