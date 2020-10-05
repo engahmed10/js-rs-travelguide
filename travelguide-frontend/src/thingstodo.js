@@ -64,7 +64,15 @@ class Thingstodo{
                            div.innerHTML += this.renderInnerHtml()
                            modal.appendChild(div)
                            console.log(modal)
-                           this.deleteThingstodo(div)
+                         div.addEventListener('click', (e) => { 
+                            e.preventDefault()    
+                            
+                             if (e.target.id === 'delete-thingstodo') {
+                                this.deleteThingstodo()
+                                e.target.parentNode.remove()
+                             }
+                          
+                          })
                         }
               
 
@@ -72,20 +80,15 @@ class Thingstodo{
            
     }
 
-deleteThingstodo=(div,)=>{
+deleteThingstodo=()=>{
  const {id,name,description,city_id} =  this.thingstodo  
-                               ///edit and delete
-   div.addEventListener('click', (e) => {
-    e.preventDefault()
-      if (e.target.id === 'delete-thingstodo') {
-          new ApiAjax(URL,'thingstodos').fetchForDelete(id)
-         e.target.parentNode.remove()
 
-     }
- 
-    
-   })
+          new ApiAjax(URL,'thingstodos').fetchForDelete(id)
 }
+
+
+
+
   renderInnerHtml= () => {
       const {id,name,description,city_id} =  this.thingstodo 
     let thingstod
