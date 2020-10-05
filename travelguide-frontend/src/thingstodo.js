@@ -1,6 +1,8 @@
 URL = `http://127.0.0.1:3000`
 const nameOfCities = document.querySelector(".names-of-cities")
 const modal = document.getElementById('modal')
+const thingstodoForm = document.querySelector('#new-thingstodo-form')
+
 
 class Thingstodo{
 
@@ -49,36 +51,40 @@ class Thingstodo{
     })  
    }
 
- 
-   renderThingstodo =()=>{
+ renderThingstodo =()=>{
      
-        const {id,name,description,city_id} =  this.thingstodo ;
+   const {id,name,description,city_id} =  this.thingstodo ;
 
-            nameOfCities.addEventListener('click', (e) => {
-               let cityId = e.target.parentElement.getAttribute('data-id')            
-                     const div = document.createElement('div')
-                        if (cityId == city_id) {                           
-                           console.log(`id of things`,id)
-                           div.classList.add('thingsToDo') 
-                           div.setAttribute('data-city-id', id)
-                           div.innerHTML += this.renderInnerHtml()
-                           modal.appendChild(div)
-                           console.log(modal)
-                         div.addEventListener('click', (e) => { 
-                            e.preventDefault()    
-                            
-                             if (e.target.id === 'delete-thingstodo') {
-                                this.deleteThingstodo()
-                                e.target.parentNode.remove()
-                             }
-                          
-                          })
-                        }
+    nameOfCities.addEventListener('click', (e) => {
+      let cityId = e.target.parentElement.getAttribute('data-id')            
+      const div = document.createElement('div')
+         if (cityId == city_id) {                           
+            console.log(`id of things`,id)
+            div.classList.add('thingsToDo') 
+            div.setAttribute('data-city-id', id)
+            div.innerHTML += this.renderInnerHtml()
+            modal.appendChild(div)
+            console.log(modal)
+            div.addEventListener('click', (e) => { 
+               e.preventDefault()    
+               
+               if (e.target.id === 'delete-thingstodo') {
+                  this.deleteThingstodo()
+                  e.target.parentNode.remove()
+               }
+                let parent = e.target.parentNode
+               if(e.target.id === 'update-thingstodo'){
+                     this.updateThingstodo(parent)
+                  
+               }
+            
+            })
+         }
               
 
-             })
+    })
            
-    }
+ }
 
 deleteThingstodo=()=>{
  const {id,name,description,city_id} =  this.thingstodo  
@@ -86,7 +92,26 @@ deleteThingstodo=()=>{
           new ApiAjax(URL,'thingstodos').fetchForDelete(id)
 }
 
+updateThingstodo=(parent)=>{
+const {id,name,description,city_id} =  this.thingstodo  
+   const nameValue = parent.querySelector('.things-name').textContent
+   const descriptionValue = parent.querySelector('.things-description').textContent
+   thingstodoForm.name.value = nameValue
+   thingstodoForm.description.value = descriptionValue
+   const submitbtn = document.querySelector('#new-things-btn')
+  submitbtn.addEventListener('click', (e) => {
+    e.preventDefault()
+     let data = {
+            name: thingstodoForm.name.value,
+            description: thingstodoForm.description.value,
+            city_id: city_id
+      }
+      console.log(`id`,id)
+      new ApiAjax(URL,'thingstodos').fetchForUpdate(id,data).then(() => location.reload())
 
+   })
+
+}
 
 
   renderInnerHtml= () => {

@@ -20,6 +20,7 @@ class ApiAjax {
       }
 
       fetchForUpdate(id,data){
+        console.log(`${this.URL}/${this.model}/${id}`)
         return fetch(`${this.URL}/${this.model}/${id}`,{
           method: 'PATCH',
                     headers: {

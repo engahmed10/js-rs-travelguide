@@ -11,10 +11,21 @@ class ThingstodosController < ApplicationController
        end
    end
 
+   def show
+    render json: @thingstodos
+  end
 
    def destroy
      @thingstodos.destroy
    end 
+
+  def update
+   
+    @thingstodos.update(name:params[:name],description:params[:description],city_id:params[:city_id])
+    render json: @thingstodos
+   end
+
+private
 
    def find_things_to_do
     
