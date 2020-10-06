@@ -1,7 +1,9 @@
 URL = `http://127.0.0.1:3000`
 const nameOfCities = document.querySelector(".names-of-cities")
 const modal = document.getElementById('modal')
-const thingstodoForm = document.querySelector('#new-thingstodo-form')
+console.log(`modal`,modal)
+const thingstodoForm = document.querySelector('#new-thingstodos-form')
+const addnewthingslink = document.querySelector(".add-new-thingstodo")
 
 
 class Thingstodo{
@@ -20,10 +22,12 @@ class Thingstodo{
 
   static makeObjectOfThingstodos=(data)=>{
      data.forEach( thingstodo => {
+     
        let obj= new Thingstodo(thingstodo)
        // this.allcity.push(obj)
+      // console.log(`obj`,obj)
         obj.renderThingstodo()
-        return obj
+        //return obj
      })
     }
 
@@ -38,12 +42,12 @@ class Thingstodo{
     //    console.log(i)
     // }
       new ApiAjax(URL,'cities').fetchAll().then(data => {
-         data.forEach(el => {
+         data.forEach(city => {
 
             const div = document.createElement('div')
             div.classList.add("city")
-            let a = `<a class="city-name" > ${el.name}</a>`
-            div.setAttribute('data-id', `${el.id}`)
+            let a = `<a class="city-name" > ${city.name}</a>`
+            div.setAttribute('dropdown-id', `${city.id}`)
             div.innerHTML += a
             nameOfCities.appendChild(div)
         })
@@ -54,17 +58,21 @@ class Thingstodo{
  renderThingstodo =()=>{
      
    const {id,name,description,city_id} =  this.thingstodo ;
-
     nameOfCities.addEventListener('click', (e) => {
-      let cityId = e.target.parentElement.getAttribute('data-id')            
-      const div = document.createElement('div')
-         if (cityId == city_id) {                           
-            console.log(`id of things`,id)
+        e.preventDefault()
+
+         modal.style.display = "flex"
+         modal.style.padding = '3em';
+         let cityDropDownId = e.target.parentElement.getAttribute('dropdown-id')            
+          const div = document.createElement('div')
+       if (cityDropDownId == city_id) {   
+            console.log("ahmed")         
             div.classList.add('thingsToDo') 
-            div.setAttribute('data-city-id', id)
+            div.setAttribute('data-thingstodo-id', id)
             div.innerHTML += this.renderInnerHtml()
             modal.appendChild(div)
-            console.log(modal)
+   
+         
             div.addEventListener('click', (e) => { 
                e.preventDefault()    
                
@@ -80,8 +88,10 @@ class Thingstodo{
 
             
             })
-            this.addNewThingstodo(div)
+
          }
+
+       
               
 
     })
@@ -92,7 +102,7 @@ class Thingstodo{
 deleteThingstodo=()=>{
  const {id,name,description,city_id} =  this.thingstodo  
 
-          new ApiAjax(URL,'thingstodos').fetchForDelete(id)
+      new ApiAjax(URL,'thingstodos').fetchForDelete(id)
 }
 
 ///update 
@@ -117,32 +127,34 @@ const {id,name,description,city_id} =  this.thingstodo
 }
 
 
-//adding new thingstodo 
-addNewThingstodo=(div)=>{
-    const {id,name,description,city_id} =  this.thingstodo  
-    //add new things to do when push submit
-    const newthingstosobtn = document.querySelector('#new-things-btn')
-  thingstodoForm.addEventListener("submit", (e) => {
+newThingstodo=()=>{
 
-      console.log('pushed ne wthings to do buttom')
-         e.preventDefault()
+ nameOfCities.addEventListener('click', (e) => {
+        e.preventDefault()
+        console.log(e.target)
+        let dropdownid=e.target.parentElement.getAttribute('dropdown-id')   
+            thingstodoForm.addEventListener("submit", (e) => {
+                  this.addNewThingstodo(dropdownid).then(data => {
+                          let makearray=[]
+                          makearray.push(data)                       
+                          Thingstodo.makeObjectOfThingstodos(makearray)
+                  })
+            })
+            
+   })
+}
+
+//adding new thingstodo 
+ addNewThingstodo=(city_id)=>{
+  
         let data = {
             name: thingstodoForm.name.value,
             description: thingstodoForm.description.value,
             city_id: city_id
          }
-         new ApiAjax(URL,'thingstodos').fetchForCreate(data).then(data => {
-
-               div.classList.add('thingsToDo')
-              // div.style.margin = '2em'
-               div.setAttribute('data-city-id', city_id)
-               div.innerHTML += this.renderInnerHtml(data)
-               modal.appendChild(div)
-            })
-   })
-}
-
-
+        return  new ApiAjax(URL,'thingstodos').fetchForCreate(data)
+   
+ } 
 
   renderInnerHtml= () => {
       const {id,name,description,city_id} =  this.thingstodo 
@@ -155,5 +167,6 @@ addNewThingstodo=(div)=>{
     <button id="update-thingstodo" class="add-btn" type="submit">Update</button>
     </div><br>
    `
-}
+ }
+
 }

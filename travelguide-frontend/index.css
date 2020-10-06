@@ -78,8 +78,16 @@ li a{
     display: block;
 }
 
+#modal {
+    border: outset;
+    mix-blend-mode: multiply;
+}
 
-
+.close {
+    height: 2px;
+    color: darkred;
+    font-size: x-large;
+}
 
 
 

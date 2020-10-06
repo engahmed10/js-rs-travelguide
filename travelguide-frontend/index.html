@@ -37,13 +37,15 @@
     </headers>
   <main>
 
-    <div id="modal">
+    <dialog id="modal">
+        <div class='close'> x</div><br>
+
       <div class='add-new-thingstodo'>
           <a href="#section2"> Add New ThingToDo</a>
       </div>
      
 
-    </div>
+    </dialog>
 
   
 
@@ -82,26 +84,24 @@
 </div>
 
 <div id="section2">
-    <form id="new-thingstodo-form">
-        <h2>Add new things to do</h2>
+    <form id="new-thingstodos-form">
+        <h2>Add New ThingsToDo</h2>
         <ul>
+            <li>
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" value="" />
+            </li>
+            <li>
+                <label for="description">Description:</label>
+                <input type="text" name="description" id="description" value="" />
+            </li>
+            <li>
+                <input type="submit" value="submit" id="new-things-btn" />
+                <input type="reset" value="reset" />
+            </li>
 
-        <li>
-            <label for="name"> Name: </label>
-            <input type="text"  name="name" id="name"  value="" />
-        </li>
-        <li>
-            <label for="description"> Description: </label>
-            <input type="text"  name="description" id="description"  value="" />
-        </li>
-        <li>
-        
-            <input type="submit"  value="submit " id="new-things-btn"  value="" />
-            <input type="reset" value="reset" />
-        </li>
-
-      </ul>
-     </form>
+        </ul>
+    </form>
 
 </div>
    
