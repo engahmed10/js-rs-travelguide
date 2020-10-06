@@ -21,6 +21,14 @@ img{
       border-radius: 50px;
 }
 
+h4 {
+    margin: auto;
+}
+
+h5 {
+    margin: auto;
+}
+
 .city_collection {
    
     margin: 8em;
