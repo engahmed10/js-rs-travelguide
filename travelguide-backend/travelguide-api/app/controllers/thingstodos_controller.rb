@@ -19,6 +19,7 @@ class ThingstodosController < ApplicationController
     city=City.find_by(id:params[:city_id])
     thingstodo=Thingstodo.create(name:params[:name],description:params[:description],city_id:city.id)
     city.thingstodos << thingstodo
+    ##byebug
     render json: thingstodo
   end
 

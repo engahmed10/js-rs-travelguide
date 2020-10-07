@@ -3,9 +3,9 @@ const nameOfCities = document.querySelector(".names-of-cities")
 const modal = document.getElementById('modal')
 const thingstodoForm = document.querySelector('#new-thingstodos-form')
 const addnewthingslink = document.querySelector(".add-new-thingstodo")
-const modalcard  =document.querySelector('.modalcard')
 
-class Thingstodo{
+
+class Fake{
 
     constructor(thingstodo){
         this.thingstodo=thingstodo;
@@ -21,8 +21,7 @@ class Thingstodo{
 
   static makeObjectOfThingstodos=(data)=>{
      data.forEach( thingstodo => {
-       let obj= new Thingstodo(thingstodo)
-      
+       let obj= new Fake(thingstodo)
         obj.renderThingstodo()
      })
     }
@@ -54,42 +53,42 @@ class Thingstodo{
  renderThingstodo =()=>{
      
    const {id,name,description,city_id} =  this.thingstodo ;
-    console.log(`name`, name)
-
    const dropdown = document.querySelector('.dropdown-elements')
-   console.log(`dropdown`,dropdown)
-   nameOfCities.addEventListener('click', (e) => {
+
+dropdown.addEventListener('click', (e) => {
+      // console.log(`city_id`,e.target)
        e.preventDefault()
+       console.log('ahmed')
           modal.style.display = "flex"
           modal.style.padding = '3em';
           form.style.display = "none"
-         // thingstodoForm.style.display="none"
-          console.log(`e.target.parentElement`,e.target.parentElement)
-          let cityDropDownId = e.target.parentElement.getAttribute('dropdown-id')            
+          thingstodoForm.style.display="none"
+         // let cityDropDownId = e.target.parentElement.getAttribute('dropdown-id') 
+           let cityDropDownId = e.target.parentNode.getAttribute('dropdown-id')           
           const div = document.createElement('div')
-       
+          this.newThingstodo(cityDropDownId)
        if (cityDropDownId == city_id) {   
 
-            modalcard.setAttribute('modalcard-id', `${city_id}`)
             div.classList.add('thingsToDo') 
             div.setAttribute('data-thingstodo-id', id)
             div.innerHTML += this.renderInnerHtml()
-            modalcard.appendChild(div)
-            //modal.appendChild(div)
-             // this.newThingstodo(city_id)
+            modal.appendChild(div)
+            
+            
+           // this.newThingstodo()
             city_collection.style.display = "none"
             div.addEventListener('click', (e) => { 
                e.preventDefault()    
                
                if (e.target.id === 'delete-thingstodo') {
                   this.deleteThingstodo()
+                  console.log(e.target.parentNode)
                   e.target.parentNode.remove()
                }
 
                 let parent = e.target.parentNode
                if(e.target.id === 'update-thingstodo'){
-                    thingstodoForm.style.display="block"
-                   console.log(`update id`,e.target.id)
+                     thingstodoForm.style.display="block"
                      this.updateThingstodo(parent) 
                } 
 
@@ -97,7 +96,7 @@ class Thingstodo{
 
             const close = document.querySelector('.close')
                 close.addEventListener('click', (e) => {
-                     e.preventDefault()
+                    e.preventDefault()
                     div.remove()
                     modal.style.display = "none"
                     city_collection.style.display = "block"
@@ -112,7 +111,8 @@ class Thingstodo{
 deleteThingstodo=()=>{
  const {id,name,description,city_id} =  this.thingstodo  
 
-      new ApiAjax(URL,'thingstodos').fetchForDelete(id).then(() => location.reload())
+      new ApiAjax(URL,'thingstodos').fetchForDelete(id)//.then(() => location.reload())
+ 
 }
 
 ///update 
@@ -133,35 +133,34 @@ const {id,name,description,city_id} =  this.thingstodo
       new ApiAjax(URL,'thingstodos').fetchForUpdate(id,data).then(() => location.reload())
 
    })
+this.resetForm()
+}
+
+resetForm =()=>{
+ thingstodoForm.name.value =""
+ thingstodoForm.description.value =""
 
 }
 
 
 newThingstodo=(city_id)=>{
 
+ //nameOfCities.addEventListener('click', (e) => {
+       // e.preventDefault()
+     //   console.log(e.target)
+       // let dropdownid=e.target.parentElement.getAttribute('dropdown-id')   
+            thingstodoForm.addEventListener("submit", (e) => {
+               e.preventDefault()
+               console.log('add pushed')
                   this.addNewThingstodo(city_id).then(data => {
-                        let obj= new Thingstodo(data)
-
-                        obj.renderonethings()
-                        // let makearray=[]
-                         // makearray.push(data)   
-                         // Thingstodo.makeObjectOfThingstodos(makearray)                        
+                          let makearray=[]
+                          makearray.push(data)                       
+                          Fake.makeObjectOfThingstodos(makearray)                        
                   })
-  
-}
-
-renderonethings=()=>{
-   const {id,name,description,city_id} =  this.thingstodo ;
-      const modalCardById  = modal.querySelector(`div[modalcard-id="${city_id}"]`)
-       console.log(`modalllll`,modalCardById)
-            const div = document.createElement('div')
-            div.classList.add('thingsToDo') 
-            div.setAttribute('data-thingstodo-id', id)
-            div.innerHTML += this.renderInnerHtml()
-      const dropdown = document.querySelector('.dropdown-elements')
-      modalCardById.appendChild(div)
-
-
+            })
+            this.resetForm()
+            
+  // })
 }
 
 //adding new thingstodo 
@@ -172,9 +171,7 @@ renderonethings=()=>{
             description: thingstodoForm.description.value,
             city_id: city_id
          }
-
-         console.log(`data`,data)
-        return  new ApiAjax(URL,'thingstodos').fetchForCreate(data).then(() => location.reload())
+        return  new ApiAjax(URL,'thingstodos').fetchForCreate(data)
  } 
 
   renderInnerHtml= () => {
