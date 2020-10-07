@@ -1,7 +1,0 @@
-{
-    "emmet.excludeLanguages": [
-
-        "markdown"
-    ],
-    "eslint.enable": true
-}

@@ -54,17 +54,14 @@ class Thingstodo{
  renderThingstodo =()=>{
      
    const {id,name,description,city_id} =  this.thingstodo ;
-    console.log(`name`, name)
-
    const dropdown = document.querySelector('.dropdown-elements')
-   console.log(`dropdown`,dropdown)
    nameOfCities.addEventListener('click', (e) => {
        e.preventDefault()
           modal.style.display = "flex"
           modal.style.padding = '3em';
           form.style.display = "none"
          // thingstodoForm.style.display="none"
-          console.log(`e.target.parentElement`,e.target.parentElement)
+
           let cityDropDownId = e.target.parentElement.getAttribute('dropdown-id')            
           const div = document.createElement('div')
        
@@ -89,7 +86,6 @@ class Thingstodo{
                 let parent = e.target.parentNode
                if(e.target.id === 'update-thingstodo'){
                     thingstodoForm.style.display="block"
-                   console.log(`update id`,e.target.id)
                      this.updateThingstodo(parent) 
                } 
 
@@ -147,13 +143,11 @@ newThingstodo=(city_id)=>{
                          // makearray.push(data)   
                          // Thingstodo.makeObjectOfThingstodos(makearray)                        
                   })
-  
 }
 
 renderonethings=()=>{
    const {id,name,description,city_id} =  this.thingstodo ;
       const modalCardById  = modal.querySelector(`div[modalcard-id="${city_id}"]`)
-       console.log(`modalllll`,modalCardById)
             const div = document.createElement('div')
             div.classList.add('thingsToDo') 
             div.setAttribute('data-thingstodo-id', id)
@@ -173,7 +167,6 @@ renderonethings=()=>{
             city_id: city_id
          }
 
-         console.log(`data`,data)
         return  new ApiAjax(URL,'thingstodos').fetchForCreate(data).then(() => location.reload())
  } 
 
