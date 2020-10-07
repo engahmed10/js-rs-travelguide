@@ -41,7 +41,7 @@
         <div class="modalcard">
             <div class='close'> x</div><br>
             <div class='add-new-thingstodo'>
-              <a href="#section2"> Add New ThingToDo</a>
+               <a id='add-new-thingstodo'> New ThingToDo</a>
             </div>
         </div>
     </dialog>
@@ -82,9 +82,10 @@
     </form>
 </div>
 
-<div id="section2">
-    <form id="new-thingstodos-form">
+
+<form id="new-thingstodos-form">
         <h2>Add New ThingsToDo</h2>
+        <div class='close1'> x</div><br>
         <ul   style="list-style-type:none;">
             <li>
                 <label for="name">Name:</label>
@@ -92,7 +93,7 @@
             </li>
             <li>
                 <label for="description">Description:</label>
-                <input type="text" name="description" id="description" value="" />
+                <textarea type="text" name="description" id="description" value="" rows="4" cols="50"></textarea>
             </li>
             <li>
                 <input type="submit" value="submit" id="new-things-btn" />
@@ -102,7 +103,7 @@
         </ul>
     </form>
 
-</div>
+
    
 
 

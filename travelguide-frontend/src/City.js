@@ -11,7 +11,6 @@ class City {
    }
 
  
-
   static allCity(){
      return this.allcity;
  }

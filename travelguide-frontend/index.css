@@ -122,6 +122,14 @@ li a {
   cursor: pointer;
 }
 
+.closeform {
+    height: 2px;
+    color: darkred;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+}
+
 .add-new-thingstodo {
     height: 2px;
 }

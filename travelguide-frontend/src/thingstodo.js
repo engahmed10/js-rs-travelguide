@@ -51,58 +51,87 @@ class Thingstodo{
     })  
    }
 
- renderThingstodo =()=>{
+renderThingstodo =()=>{
      
-   const {id,name,description,city_id} =  this.thingstodo ;
-   const dropdown = document.querySelector('.dropdown-elements')
-   nameOfCities.addEventListener('click', (e) => {
-       e.preventDefault()
-          modal.style.display = "flex"
-          modal.style.padding = '3em';
-          form.style.display = "none"
-         // thingstodoForm.style.display="none"
+const {id,name,description,city_id} =  this.thingstodo ;
+const dropdown = document.querySelector('.dropdown-elements')
+nameOfCities.addEventListener('click', (e) => {
 
-          let cityDropDownId = e.target.parentElement.getAttribute('dropdown-id')            
-          const div = document.createElement('div')
-       
-       if (cityDropDownId == city_id) {   
+      e.preventDefault()
 
-            modalcard.setAttribute('modalcard-id', `${city_id}`)
-            div.classList.add('thingsToDo') 
-            div.setAttribute('data-thingstodo-id', id)
-            div.innerHTML += this.renderInnerHtml()
-            modalcard.appendChild(div)
-            //modal.appendChild(div)
-             // this.newThingstodo(city_id)
-            city_collection.style.display = "none"
-            div.addEventListener('click', (e) => { 
-               e.preventDefault()    
+         modal.style.display = "flex"
+         modal.style.padding = '3em';
+         form.style.display = "none"
+
+         let cityDropDownId = e.target.parentElement.getAttribute('dropdown-id')            
+         const div = document.createElement('div')
+      
+   if (cityDropDownId == city_id) {   
+
+      modalcard.setAttribute('modalcard-id', `${city_id}`)
+      div.classList.add('thingsToDo') 
+      div.setAttribute('data-thingstodo-id', id)
+      div.innerHTML += this.renderInnerHtml()
+      modalcard.appendChild(div)
+      //modal.appendChild(div)
+         // this.newThingstodo(city_id)
+      city_collection.style.display = "none"
+      div.addEventListener('click', (e) => { 
+         e.preventDefault()    
+         
+         if (e.target.id === 'delete-thingstodo') {
+
+            this.deleteThingstodo()
+            e.target.parentNode.remove()
+
+         }
+
+            let parent = e.target.parentNode
+         if (e.target.id === 'update-thingstodo'){
+
+               thingstodoForm.style.display="block"
+               modal.style.display = "none"
+               thingstodoForm.style.margin= "9em";
+                 Thingstodo.closeTag1()
+               this.updateThingstodo(parent) 
                
-               if (e.target.id === 'delete-thingstodo') {
-                  this.deleteThingstodo()
-                  e.target.parentNode.remove()
-               }
+         } 
 
-                let parent = e.target.parentNode
-               if(e.target.id === 'update-thingstodo'){
-                    thingstodoForm.style.display="block"
-                     this.updateThingstodo(parent) 
-               } 
+      })
 
-            })
+   Thingstodo.closeTag(div)
+   }         
 
-            const close = document.querySelector('.close')
-                close.addEventListener('click', (e) => {
-                     e.preventDefault()
-                    div.remove()
-                    modal.style.display = "none"
-                    city_collection.style.display = "block"
-                })
-         }         
-
-    })
+ })
         
  }
+
+static closeTag=(div)=>{
+   
+   const close = document.querySelector('.close')
+      close.addEventListener('click', (e) => {
+         console.log('inside')
+         e.preventDefault()
+         div.remove()
+         modal.style.display = "none"
+         city_collection.style.display = "block"
+         form.style.display = "block"
+         thingstodoForm.style.display="none"
+      })
+}
+
+
+
+static closeTag1=()=>{
+
+    
+   const close = document.querySelector('.close1')
+      close.addEventListener('click', (e) => {
+           e.preventDefault()
+           location.reload()
+      })
+}
+
 
 ///delete
 deleteThingstodo=()=>{
@@ -114,11 +143,13 @@ deleteThingstodo=()=>{
 ///update 
 updateThingstodo=(parent)=>{
 const {id,name,description,city_id} =  this.thingstodo  
+   
    const nameValue = parent.querySelector('.things-name').textContent
    const descriptionValue = parent.querySelector('.things-description').textContent
    thingstodoForm.name.value = nameValue
    thingstodoForm.description.value = descriptionValue
    const submitbtn = document.querySelector('#new-things-btn')
+  
   submitbtn.addEventListener('click', (e) => {
     e.preventDefault()
      let data = {
@@ -127,22 +158,19 @@ const {id,name,description,city_id} =  this.thingstodo
             city_id: city_id
       }
       new ApiAjax(URL,'thingstodos').fetchForUpdate(id,data).then(() => location.reload())
-
    })
-
 }
 
 
 newThingstodo=(city_id)=>{
-
-                  this.addNewThingstodo(city_id).then(data => {
-                        let obj= new Thingstodo(data)
-
-                        obj.renderonethings()
-                        // let makearray=[]
-                         // makearray.push(data)   
-                         // Thingstodo.makeObjectOfThingstodos(makearray)                        
-                  })
+        
+         this.addNewThingstodo(city_id).then(data => {
+               let obj= new Thingstodo(data)
+               obj.renderonethings()
+               // let makearray=[]
+                  // makearray.push(data)   
+                  // Thingstodo.makeObjectOfThingstodos(makearray)                        
+         })
 }
 
 renderonethings=()=>{
@@ -152,10 +180,8 @@ renderonethings=()=>{
             div.classList.add('thingsToDo') 
             div.setAttribute('data-thingstodo-id', id)
             div.innerHTML += this.renderInnerHtml()
-      const dropdown = document.querySelector('.dropdown-elements')
+       const dropdown = document.querySelector('.dropdown-elements')
       modalCardById.appendChild(div)
-
-
 }
 
 //adding new thingstodo 
@@ -174,12 +200,12 @@ renderonethings=()=>{
       const {id,name,description,city_id} =  this.thingstodo 
     let thingstod
     return thingstod = `
-    <br><div data-id=${id}>
-    <h4 class="things-name" > ${name}</h4><br>
-    <h5 class="things-description" data-id=${id}>${description} </h5>
-    <button id="delete-thingstodo" class="add-btn" type="submit">Delete</button>
-    <button id="update-thingstodo" class="add-btn" type="submit">Update</button>
-    </div><br><br>
+      <br><div data-id=${id}>
+      <h4 class="things-name" > ${name}</h4><br>
+      <h5 class="things-description" data-id=${id}>${description} </h5>
+      <button id="delete-thingstodo" class="add-btn" type="submit">Delete</button>
+      <button id="update-thingstodo" class="add-btn" type="submit">Update</button>
+      </div><br><br>
    `
  }
 
