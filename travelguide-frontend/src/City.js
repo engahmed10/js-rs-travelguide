@@ -13,6 +13,7 @@ class City {
  
   static allCity(){
      return this.allcity;
+     
  }
 
    ///render and del and update

@@ -132,6 +132,7 @@ li a {
 
 .add-new-thingstodo {
     height: 2px;
+    padding: 1em;
 }
 
 #del-city {
@@ -168,6 +169,10 @@ ul {
 
 .thingsToDo{
     min-width: auto;
+     border: ridge;
+     background-color: lemonchiffon;  
+            
+
 }
 
 .things-name{
@@ -192,4 +197,10 @@ vertical-align: -webkit-baseline-middle;
 
     display: none;
 
+}
+
+.wrap {
+
+    float: right;
+    margin: 1em;
 }
