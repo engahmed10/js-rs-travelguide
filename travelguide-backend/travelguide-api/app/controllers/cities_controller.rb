@@ -13,7 +13,7 @@ class CitiesController < ApplicationController
     def update
         city=City.find(params[:id])
         city.update(name:params[:name],country:params[:country],population:params[:population],url:params[:url])
-        render json: city
+        render json: city ,include: [:thingstodos]
     end
 
     def create

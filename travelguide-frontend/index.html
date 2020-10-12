@@ -6,10 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="index.css">
-
 </head>
-
-
 
 <body>
     <headers>
@@ -30,37 +27,31 @@
             </li>
 
           
-                <form method="get" action="http://www.google.com/search" class="wrap">
-                        <input type="text"   name="q" size="25" style="color:#808080;"
-                        maxlength="255" value="Google site search"
-                        onfocus="if(this.value==this.defaultValue)this.value=''; this.style.color='black';" onblur="if(this.value=='')this.value=this.defaultValue; "/>
-                        <input type="submit" value="search!" />
-           
-                </form>
+    <form method="get" action="http://www.google.com/search" class="wrap">
+            <input type="text"   name="q" size="25" style="color:#808080;"
+            maxlength="255" value="Google site search"/>
+            <input type="submit" value="search!" />
+    </form>
                     
         </ul>
 
     </headers>
   <main>
 
-    <dialog id="modal">
-        <div class="modalcard">
-            <div class='close'> x</div><br>
-            <div class='add-new-thingstodo'>
-               <a id='add-new-thingstodo'> New ThingToDo</a>
-            </div>
+    <dialog class="modal">
+        <div class='close'> x </div><br>
+        <div class="city-thingstodo" >
+            <button  id="add-thingstodo" >Add  New ThingsToDo </button>
         </div>
     </dialog>
 
-  
 
    <div  class= 'city_collection'>
 
 
    </div>
 
-   <div id="section1">
-
+<div id="section1">
     <form id="city-form">
         <h2>Add New City</h2>
         <ul  style="list-style-type:none;">
@@ -86,9 +77,38 @@
             </li>
         </ul>
     </form>
+
 </div>
 
 
+    <form id="city-update-form">
+        <h2>Update City</h2>
+        <ul  style="list-style-type:none;">
+            <li>
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" value="" />
+            </li>
+            <li>
+                <label for="country">Country:</label>
+                <input type="text" name="country" id="country" value="" />
+            </li>
+            <li>
+                <label for="population">Population:</label>
+                <input type="text" name="population" id="population" value="" />
+            </li>
+            <li>
+                <label for="url">Url:</label>
+                <input type="text" name="url" id="url" value="" />
+            </li>
+            <li>
+                <input type="submit" value="submit" id="city-update-btn" />
+                <input type="reset" value="reset" />
+            </li>
+        </ul>
+    </form>
+
+
+   
 <form id="new-thingstodos-form">
         <h2>Add New ThingsToDo ⛵</h2>
         <div class='close1'> x</div><br>
@@ -107,7 +127,26 @@
             </li>
 
         </ul>
-    </form>
+</form>
+
+<form id="update-thingstodos-form">
+    <h2>Update ThingsToDo ⛵</h2>
+    <div class='close1'> x</div><br>
+    <ul   style="list-style-type:none;">
+        <li>
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" value="" />
+        </li>
+        <li>
+            <label for="description">Description:</label>
+            <textarea type="text" name="description" id="description" value="" rows="4" cols="50"></textarea>
+        </li>
+        <li>
+            <input type="submit" value="submit" id="update-things-btn" />
+        </li>
+
+    </ul>
+</form>
 
 
    
@@ -117,10 +156,13 @@
 
 
 
- <script type="text/javascript"  src="index.js"></script>
- <script type="text/javascript"  src="src/City.js"></script>
- <script type="text/javascript"  src="src/Thingstodo.js"></script>
- <script type="text/javascript"   src="src/ApiAjax.js"></script>
+ <script type="application/javascript"  src="src/City.js"  charset="UTF-8"></script>
+ <script type="application/javascript"  src="src/Thingstodo.js"  charset="UTF-8"></script>
+ <script type="application/javascript"  src="src/ApiAjax.js"  charset="UTF-8"></script>
+ <script type="application/javascript"  src="src/index.js"  charset="UTF-8"></script>
+
+ 
+
 </body>
 
 </html>
