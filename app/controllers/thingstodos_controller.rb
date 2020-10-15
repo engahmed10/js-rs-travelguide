@@ -20,7 +20,7 @@ class ThingstodosController < ApplicationController
    end
 
   def create
-
+    
     city=City.find_by(id:params[:city_id])
     thingstodo=Thingstodo.create(name:params[:name],description:params[:description],city_id:city.id)
     city.thingstodos << thingstodo
@@ -38,6 +38,7 @@ class ThingstodosController < ApplicationController
   def update
    
     @thingstodos.update(name:params[:name],description:params[:description],city_id:params[:city_id])
+    
     render json: @thingstodos
 
    end
