@@ -5,16 +5,16 @@ class Thingstodo {
 
    static arrayofcities =[]
 
-    constructor(thingstodo){
-      
-       this.thingstodo=thingstodo;
+   constructor(thingstodo){
+       
+       this.thingstodo = thingstodo;
        Thingstodo.arrayofcities.push(this.thingstodo)
       
    }
 
 
     static drowpdownCities=()=>
-    { 
+     { 
         new ApiAjax(URL,'cities').fetchAll().then(data => {
             data.forEach(city => {
                const div = document.createElement('div')
@@ -23,8 +23,7 @@ class Thingstodo {
                div.setAttribute('dropdown-id', `${city.id}`)
                div.innerHTML += a
                nameOfCities.appendChild(div)
-             
-               
+                           
             })
         }) 
     }  
@@ -50,7 +49,7 @@ static listentodropdown=()=>{
 
 
 renderThingstodos=()=> {
-
+   
       const {id,name,description,city_id} =  this.thingstodo ;
        citycard.setAttribute('data-city-id',city_id)
        modal.style.display="block"
@@ -59,6 +58,8 @@ renderThingstodos=()=> {
        div.setAttribute('data-thingstodo-id', id)
        div.innerHTML += this.renderInnerHtml()
        citycard.appendChild(div)  
+       thingstodoForm.style.display = "none"; 
+
  }
 
 
@@ -94,8 +95,6 @@ static closeTag1=()=>{
 
          city_collection.innerHTML=""
          City.promiseAllCities()
-
-
  })
 
 }
@@ -122,9 +121,11 @@ static closeTag=()=>{
 
 static makeObjectOfThingstodos=(data)=>{
      data.forEach( thingstodo => {
+          console.log(`thingss`,thingstodo)
         let obj= new Thingstodo(thingstodo)
+        console.log(`obj`,obj)
         obj.renderThingstodos()
-     
+       
         return obj
      })
 }
@@ -137,15 +138,22 @@ static addNewThingstodo=(city_id)=>{
       description: newthingsform.description.value,
       city_id: city_id
     }
+    console.log(`data`,data)
    return new ApiAjax(URL,'thingstodos').fetchForCreate(data)
 } 
 
 static newThingstodo=(city_id)=>{
    newthingsform.addEventListener('submit',(e)=>{
       e.preventDefault()
+
          this.addNewThingstodo(city_id).then(data => {
-         let obj= new Thingstodo(data)
-         obj.renderThingstodos()
+            console.log(`data after`,data)
+           let array=[]
+            array.push(data)
+          this.makeObjectOfThingstodos(array)
+         newthingsform.name.value=""
+         newthingsform.description.value=""
+
        })
    })
 }
@@ -155,7 +163,6 @@ static updatelisten=()=>{
    citycard.addEventListener("click",(e)=>{
       e.preventDefault()
       if(e.target.id == "update-thingstodo"){
-
          updateForm.style.display = "block"
          modal.style.display = "none"
          let  cityId=e.target.parentElement.parentElement.parentElement.getAttribute('data-city-id')

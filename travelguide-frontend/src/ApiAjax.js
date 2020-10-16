@@ -44,7 +44,7 @@ class ApiAjax {
         },
         body: JSON.stringify(data),
     })
-    .then(response => response.json())
+    .then(res => res.json())
   }
 
 }

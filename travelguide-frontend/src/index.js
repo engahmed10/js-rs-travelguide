@@ -11,59 +11,27 @@ const updateForm =document.querySelector('#update-thingstodos-form')
 const city_collection = document.querySelector('.city_collection')
 const updateCityForm = document.querySelector('#city-update-form')
 const cityCards = document.querySelector('.card')
+const newthings = document.querySelector('#add-thingstodo')
+
 
 document.addEventListener("DOMContentLoaded", function() {
+ City.promiseAllCities()
+City.makeNewCity()
+City.listenForUpdateAndDel()
 
-City.promiseAllCities()
-City.makeNewCity(form)
 Thingstodo.closeTag()
 Thingstodo.closeTag1()
 Thingstodo.updatelisten()
-Thingstodo.drowpdownCities()
 Thingstodo.deleteThings()
+Thingstodo.drowpdownCities()
 Thingstodo.listentodropdown()
 
-
-const newthings = document.querySelector('#add-thingstodo')
-newthings.addEventListener('click', (e) => {
-   modal.style.display="none"
-   thingstodoForm.style.display = "block"; 
-   let cityId= e.target.parentNode.getAttribute('data-city-id')
-   Thingstodo.newThingstodo(cityId)
-});
-
-
-const updateCity = document.querySelector('.update-btn')
-///update and delete city
-city_collection.addEventListener("click",(e)=>{
-      
-       if(e.target.id === 'update-city'){
-          
-               updateCityForm.style.display = "block"
-               form.style.display = "none"
-              
-               let parent = e.target.parentNode
-               const nameValue=parent.querySelector('.city-name').textContent
-               const countryValue=parent.querySelector('.city-country').textContent
-               const populationValue=parent.querySelector('.city-population').textContent
-               const urlValue=parent.querySelector('.city-url').src
-
-               updateCityForm.name.value= nameValue
-               updateCityForm.country.value=countryValue
-               updateCityForm.population.value=populationValue
-               updateCityForm.url.value= urlValue
-            
-              let cityid = e.target.parentNode.getAttribute('data-id')
-                    new City().updatecity(cityid,parent)
-
-         }
-
-         if(e.target.id == 'del-city') {
-            let city_id = e.target.parentNode.getAttribute('data-id')
-            new ApiAjax(URL,'cities').fetchForDelete(city_id)
-              e.target.parentNode.remove()
-         }
-
-})
+      newthings.addEventListener('click', (e) => {
+         e.preventDefault()
+         modal.style.display="none"
+         thingstodoForm.style.display = "block"; 
+         let cityId= e.target.parentNode.getAttribute('data-city-id')
+         Thingstodo.newThingstodo(cityId)
+      });
 
 })

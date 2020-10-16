@@ -101,10 +101,11 @@ li a {
 
 }
 
-#modal {
+.modal {
   mix-blend-mode: multiply;
-    font: small-caption;
-    border: hidden;
+  min-width: -webkit-fill-available;
+  font: small-caption;
+   border: hidden;
 }
 
 
