@@ -13,7 +13,7 @@ class City {
    }
 
 
-   ///render and del and update
+   ///render 
   renderCities(){  
 
      const{id,name,country,population,url,thingstodos} = this.city;
@@ -25,19 +25,27 @@ class City {
      city_collection.appendChild(card)
     
      card.addEventListener('click',(e)=>{
-          e.preventDefault()
+        e.preventDefault()
+       
+       
           if(e.target.id === 'thingstodo-city') {
                
-               if(thingstodos.length == 0){
-                 thingstodoForm.style.display = "block"; 
+               if (thingstodos.length == 0){
+                  thingstodoForm.style.display = "block"; 
                   Thingstodo.newThingstodo(id)
-                  
+                   
+                }
 
-               }
-             //  thingstodoForm.style.display = "none"; 
-               city_collection.style.display="none"
-               form.style.display="none"
+                city_collection.style.display="none"
+                form.style.display="none"
+                newthings.disabled = false;
+                updateForm.style.display='none'
+                updateCityForm.style.display = "none"
+
+
                Thingstodo.makeObjectOfThingstodos(thingstodos)
+               
+              
           }
      })
 
@@ -47,9 +55,9 @@ class City {
  static listenForUpdateAndDel=()=>{
 
 
-const updateCity = document.querySelector('.update-btn')
-///update and delete city
-city_collection.addEventListener("click",(e)=>{
+ const updateCity = document.querySelector('.update-btn')
+
+  city_collection.addEventListener("click",(e)=>{
       
        if(e.target.id === 'update-city'){
           
@@ -92,7 +100,7 @@ city_collection.addEventListener("click",(e)=>{
           {
              e.preventDefault()
             
-             let data={
+             let data = {
                     name: updateCityForm.name.value,
                     country: updateCityForm.country.value,
                     population: updateCityForm.population.value,
@@ -124,7 +132,7 @@ renderoncity=()=>{
      card.classList.add("card")
      card.setAttribute('data-id',id)
      card.innerHTML = this.renderHTML()
-     city_collection.appendChild(card)
+       city_collection.appendChild(card)
 }
 
  static makeObjectOfCities=(data)=>{
@@ -179,6 +187,5 @@ renderHTML = () => {
    `
 }
 
-  
 }
 

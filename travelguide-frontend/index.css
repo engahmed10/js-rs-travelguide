@@ -105,9 +105,8 @@ li a {
   mix-blend-mode: multiply;
   min-width: -webkit-fill-available;
   font: small-caption;
-   border: hidden;
+  border: hidden;
 }
-
 
 
 .close {
@@ -221,3 +220,4 @@ vertical-align: -webkit-baseline-middle;
 
     display: none;
 }
+

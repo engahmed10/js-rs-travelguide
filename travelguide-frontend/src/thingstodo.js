@@ -37,11 +37,22 @@ static listentodropdown=()=>{
                   const citydropdownName = e.target.textContent.trim()
               
                 if( citydropdownName == city.name)
+
                 {   
+                   city_collection.style.display="none"
+                   form.style.display="none"
                    this.makeObjectOfThingstodos(city.thingstodos)
+                  
                 }
-         
+                 if (document.querySelector('#delete-thingstodo') != null ){
+                   document.querySelector('#delete-thingstodo').remove()
+                   document.querySelector('#update-thingstodo').remove()
+                   }
+                   newthings.disabled = true;
+
+  
            })
+  
 
          })
       })
@@ -74,7 +85,7 @@ static deleteThings(){
         if (e.target.id =="delete-thingstodo"){
            let id=e.target.parentElement.getAttribute('data-id')
            this.deleteThingstodo(id)
-            e.target.parentElement.remove()
+            e.target.parentElement.parentElement.remove()
         }
     } )
 }
@@ -82,8 +93,8 @@ static deleteThings(){
 static closeTag1=()=>{
  close1.addEventListener('click', (e) => {
 
-        e.preventDefault()
-        thingstodoForm.style.display = "none"; 
+         e.preventDefault()
+         thingstodoForm.style.display = "none"; 
            const firstChild =citycard.firstElementChild
 
          citycard.innerHTML=""
@@ -104,7 +115,6 @@ static closeTag=()=>{
         e.preventDefault()
 
          const firstChild =citycard.firstElementChild
-
          citycard.innerHTML=""
          citycard.appendChild(firstChild)
 
@@ -125,32 +135,24 @@ static makeObjectOfThingstodos=(data)=>{
         let obj= new Thingstodo(thingstodo)
         console.log(`obj`,obj)
         obj.renderThingstodos()
-       
-        return obj
+
      })
 }
 
 
-//adding new thingstodo 
-static addNewThingstodo=(city_id)=>{
-   let data = {
-      name: newthingsform.name.value,
-      description: newthingsform.description.value,
-      city_id: city_id
-    }
-    console.log(`data`,data)
-   return new ApiAjax(URL,'thingstodos').fetchForCreate(data)
-} 
 
 static newThingstodo=(city_id)=>{
    newthingsform.addEventListener('submit',(e)=>{
       e.preventDefault()
-
-         this.addNewThingstodo(city_id).then(data => {
-            console.log(`data after`,data)
-           let array=[]
-            array.push(data)
-          this.makeObjectOfThingstodos(array)
+       let data = {
+            name: newthingsform.name.value,
+            description: newthingsform.description.value,
+            city_id: city_id
+                 }
+         return new ApiAjax(URL,'thingstodos').fetchForCreate(data).then(data => {
+         let array=[]
+         array.push(data)
+         this.makeObjectOfThingstodos(array)
          newthingsform.name.value=""
          newthingsform.description.value=""
 
@@ -185,6 +187,7 @@ static updateThingstodo=(parent,cityId,id)=>{
     
     updateBtn.addEventListener('click', (e) =>  {
       e.preventDefault()
+
         let data = {
             name: updateForm.name.value,
             description: updateForm.description.value,
@@ -197,13 +200,25 @@ static updateThingstodo=(parent,cityId,id)=>{
          updateForm.name.value=""
          updateForm.description.value=""
          cityId=""
+         updateForm.style.display = "none"
+
        })
     })
  }
 
+static newThingsToDos=()=> {
+   newthings.addEventListener('click', (e) => {
+      e.preventDefault()
+         modal.style.display="none"
+         thingstodoForm.style.display = "block"; 
+         let cityId= e.target.parentNode.getAttribute('data-city-id')
+         this.newThingstodo(cityId)
+   });
+}
 
 renderInnerHtml= () => {
-      const {id,name,description,city_id} =  this.thingstodo 
+
+    const {id,name,description,city_id} =  this.thingstodo 
     let thingstod
     return thingstod = `
       <br><div data-id=${id}>

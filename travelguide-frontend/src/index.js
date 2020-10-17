@@ -15,7 +15,7 @@ const newthings = document.querySelector('#add-thingstodo')
 
 
 document.addEventListener("DOMContentLoaded", function() {
- City.promiseAllCities()
+City.promiseAllCities()
 City.makeNewCity()
 City.listenForUpdateAndDel()
 
@@ -25,13 +25,7 @@ Thingstodo.updatelisten()
 Thingstodo.deleteThings()
 Thingstodo.drowpdownCities()
 Thingstodo.listentodropdown()
+Thingstodo.newThingsToDos()
 
-      newthings.addEventListener('click', (e) => {
-         e.preventDefault()
-         modal.style.display="none"
-         thingstodoForm.style.display = "block"; 
-         let cityId= e.target.parentNode.getAttribute('data-city-id')
-         Thingstodo.newThingstodo(cityId)
-      });
 
 })

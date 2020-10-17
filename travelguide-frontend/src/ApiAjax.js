@@ -29,6 +29,8 @@ class ApiAjax {
       method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept':'application/json'
+
                 },
                 body: JSON.stringify(data)
       }) 
@@ -41,8 +43,9 @@ class ApiAjax {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Accept':'application/json'
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
     })
     .then(res => res.json())
   }

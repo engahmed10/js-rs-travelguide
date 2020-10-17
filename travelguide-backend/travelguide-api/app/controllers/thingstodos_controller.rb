@@ -22,10 +22,16 @@ class ThingstodosController < ApplicationController
   def create
     
     city=City.find_by(id:params[:city_id])
-    thingstodo=Thingstodo.create(name:params[:name],description:params[:description],city_id:city.id)
-    city.thingstodos << thingstodo
+    thingstodo=Thingstodo.new(name:params[:name],description:params[:description],city_id:city.id)
+    
+    if thingstodo.save
+        city.thingstodos << thingstodo
+      render json: thingstodo
+    else
+         render json: thingstodo.errors 
+    end
+    
     ##byebug
-    render json: thingstodo
 
   end
 
