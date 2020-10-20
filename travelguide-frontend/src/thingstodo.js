@@ -15,6 +15,9 @@ class Thingstodo {
 
     static drowpdownCities=()=>
      { 
+  
+
+              
         new ApiAjax(URL,'cities').fetchAll().then(data => {
             data.forEach(city => {
                const div = document.createElement('div')
@@ -33,21 +36,22 @@ static listentodropdown=()=>{
       new ApiAjax(URL,'cities').fetchAll().then(data => {
          data.forEach(city => {
            nameOfCities.addEventListener('click', (e) => {
+                 let dropId= e.target.parentElement.getAttribute('dropdown-id')
                   e.preventDefault()
                   const citydropdownName = e.target.textContent.trim()
-              
-                if( citydropdownName == city.name)
+                if( dropId == city.id)
 
                 {   
                    city_collection.style.display="none"
                    form.style.display="none"
                    this.makeObjectOfThingstodos(city.thingstodos)
+                   updateForm.style.display = "none"
                   
                 }
-                 if (document.querySelector('#delete-thingstodo') != null ){
+                if (document.querySelector('#delete-thingstodo') != null ){
                    document.querySelector('#delete-thingstodo').remove()
                    document.querySelector('#update-thingstodo').remove()
-                   }
+                  }
                    newthings.disabled = true;
 
   

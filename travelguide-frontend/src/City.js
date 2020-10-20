@@ -93,12 +93,12 @@ class City {
 
  static updatecity=(id,parent)=>{
 
-          
           const updateButton = document.querySelector("#city-update-btn")
           
           updateButton.addEventListener('click',(e)=>
           {
              e.preventDefault()
+             
             
              let data = {
                     name: updateCityForm.name.value,
@@ -106,7 +106,7 @@ class City {
                     population: updateCityForm.population.value,
                     url: updateCityForm.url.value
                }
-
+               
                   
                new ApiAjax(URL,'cities').fetchForUpdate(id,data).then(data=> 
                   
