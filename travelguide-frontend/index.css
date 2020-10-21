@@ -42,7 +42,13 @@ h5 {
     padding: 2em;
     font-size: 20px;
     text-align: center;
+    font-family: roboto;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+    border-radius: 18px;
+  
 }
+
+
 
 .navbar{
    margin: 0;
@@ -172,11 +178,18 @@ ul {
 }
 
 .thingsToDo{
-    min-width: auto;
-     border: ridge;
-     background-color: lemonchiffon;  
-            
 
+    border: ridge;
+    background-color: lemonchiffon;  
+    display: grid;
+    padding: 2em;
+    font-size: 20px;
+    text-align: center;
+    font-family: roboto;
+    border: 0px solid rgba(0, 0, 0, 0.8);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+    border-radius: 18px;
+            
 }
 
 .things-name{
@@ -209,11 +222,15 @@ vertical-align: -webkit-baseline-middle;
     margin: 1em;
 }
 
-.thingstodo-btn{    inline-size: -webkit-fill-available;}
+.thingstodo-btn{    
+    inline-size: -webkit-fill-available;
+    width: min-content;
+    justify-self: center;
+    background-color: lightgreen;
+}
 
 #section2{
     display: none;
-
 }
 
 #update-thingstodos-form{

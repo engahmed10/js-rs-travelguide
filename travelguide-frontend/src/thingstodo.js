@@ -32,11 +32,12 @@ class Thingstodo {
     }  
 
 static listentodropdown=()=>{
-      
+   
+
       new ApiAjax(URL,'cities').fetchAll().then(data => {
          data.forEach(city => {
            nameOfCities.addEventListener('click', (e) => {
-                 let dropId= e.target.parentElement.getAttribute('dropdown-id')
+                  let dropId = e.target.parentElement.getAttribute('dropdown-id')
                   e.preventDefault()
                   const citydropdownName = e.target.textContent.trim()
                 if( dropId == city.id)

@@ -29,7 +29,7 @@ class City {
        
        
           if(e.target.id === 'thingstodo-city') {
-               
+
                if (thingstodos.length == 0){
                   thingstodoForm.style.display = "block"; 
                   Thingstodo.newThingstodo(id)
@@ -41,7 +41,7 @@ class City {
                 newthings.disabled = false;
                 updateForm.style.display='none'
                 updateCityForm.style.display = "none"
-
+                
 
                Thingstodo.makeObjectOfThingstodos(thingstodos)
                
@@ -178,12 +178,12 @@ renderHTML = () => {
       const {url,name,country,population} = this.city
    return `
     <img class="city-url" src=${url} > 
-    <button id="thingstodo-city" class="thingstodo-btn"" type="submit">See All Thingstodos</button>
     <h4 class="city-name"> ${name}</h4>
     <h5 class="city-country">${country}</h5>
     <h5 class="city-population">${population} </h5>
     <button id="del-city" class="del-btn" type="submit">delete</button>
     <button id="update-city" class="update-btn" type="submit">Update</button>
+    <button id="thingstodo-city" class="thingstodo-btn"" type="submit">See All Thingstodos</button>
    `
 }
 
