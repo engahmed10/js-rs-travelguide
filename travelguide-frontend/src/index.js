@@ -12,20 +12,30 @@ const city_collection = document.querySelector('.city_collection')
 const updateCityForm = document.querySelector('#city-update-form')
 const cityCards = document.querySelector('.card')
 const newthings = document.querySelector('#add-thingstodo')
-
+const sortbuttom = document.querySelector('.sort')
 
 document.addEventListener("DOMContentLoaded", function() {
-City.promiseAllCities()
-City.makeNewCity()
-City.listenForUpdateAndDel()
+    
+    City.promiseAllCities()
+    City.makeNewCity()
+    City.listenForUpdateAndDel()
 
-Thingstodo.closeTag()
-Thingstodo.closeTag1()
-Thingstodo.updatelisten()
-Thingstodo.deleteThings()
-Thingstodo.drowpdownCities()
-Thingstodo.listentodropdown()
-Thingstodo.newThingsToDos()
+    sortbuttom.addEventListener('click',(e)=>{
+
+        
+    City.sort()
+    sortbuttom.disabled =true
+
+
+    })
+
+    Thingstodo.closeTag()
+    Thingstodo.closeTag1()
+    Thingstodo.updatelisten()
+    Thingstodo.deleteThings()
+    Thingstodo.drowpdownCities()
+    Thingstodo.listentodropdown()
+    Thingstodo.newThingsToDos()
 
 
 

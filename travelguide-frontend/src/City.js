@@ -5,19 +5,36 @@ URL = `http://127.0.0.1:3000`
 
 class City {
 
-  static allcities=[]
+   static allcities=[]
 
    constructor(city){         
      this.city = city
     City.allcities.push(this.city)
    }
 
+static sort=()=>{
+   city_collection.innerHTML=""
+   
+   let sort=City.allcities.sort(function (a, b) {
+         
+          var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+          var nameB = b.name.toUpperCase(); // ignore upper and lowercase
 
+          if (nameA < nameB) {
+             return -1;
+          }
+          if (nameA > nameB) {
+             return 1;
+          }
+   });
+
+    City.makeObjectOfCities(sort)
+}
    ///render 
   renderCities(){  
-
+      console.log(`City.allcities`,City.allcities)
      const{id,name,country,population,url,thingstodos} = this.city;
- 
+  
      let card = document.createElement('div')
      card.classList.add("card")
      card.setAttribute('data-id',id)
@@ -30,11 +47,14 @@ class City {
        
           if(e.target.id === 'thingstodo-city') {
 
-               if (thingstodos.length == 0){
+               if (thingstodos == undefined){
                   thingstodoForm.style.display = "block"; 
+                  city_collection.style.display="none"
+                   form.style.display="none"
                   Thingstodo.newThingstodo(id)
                    
                 }
+                else {
 
                 city_collection.style.display="none"
                 form.style.display="none"
@@ -44,6 +64,7 @@ class City {
                 
 
                Thingstodo.makeObjectOfThingstodos(thingstodos)
+                }
                
               
           }
@@ -106,6 +127,8 @@ class City {
                     population: updateCityForm.population.value,
                     url: updateCityForm.url.value
                }
+
+               console.log(`data after button submited `,data)
                
                   
                new ApiAjax(URL,'cities').fetchForUpdate(id,data).then(data=> 
@@ -114,6 +137,7 @@ class City {
                     let arr=[] 
                     arr.push(data)
                     this.makeObjectOfCities(arr)
+                    parent.remove()
                     parent.innerHTML=""
                     updateCityForm.name.value ="",
                     updateCityForm.country.value="",
@@ -138,8 +162,8 @@ renderoncity=()=>{
  static makeObjectOfCities=(data)=>{
      data.forEach(city => {
         let obj= new City(city)
-       obj.renderCities()
-        return obj
+        obj.renderCities()
+       
      })
  }
 
